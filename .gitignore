@@ -1,8 +1,11 @@
 db.sqlite3
+**/migrations
 env.py
 
 **/bin
 **/share
 **/lib*
 **/include
+**/__pycache__
+**/*.pyc
 pyvenv.cfg
