@@ -2,6 +2,8 @@ db.sqlite3
 **/migrations
 env.py
 
+**/test.ipynb
+
 **/bin
 **/share
 **/lib*
