@@ -1,7 +1,7 @@
 db.sqlite3
 **/migrations
 env.py
-
+test.py
 **/test.ipynb
 
 **/bin
