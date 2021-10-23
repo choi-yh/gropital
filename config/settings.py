@@ -33,15 +33,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "contest.apps.ContestConfig",
-    "common.apps.CommonConfig",
-    "simpoon.apps.SimpoonConfig",
+    "contest",
+    "simpoon",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework_swagger",
 ]
 
 MIDDLEWARE = [
