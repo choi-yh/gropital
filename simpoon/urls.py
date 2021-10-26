@@ -4,4 +4,7 @@ from . import views
 
 app_name = "simpoon"
 
-urlpatterns = [path("", views.index), path("login/", views.login)]
+urlpatterns = [
+    path("", views.index), 
+    # path("login/", views.login)
+]

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 from . import env
@@ -30,27 +31,43 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+AUTH_USER_MODEL = "simpoon.CustomUser"
+
 # Application definition
 
 INSTALLED_APPS = [
-    "contest",
-    "simpoon",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # my apps
+    "contest",
+    "simpoon",
+    # django-rest-framework
     "rest_framework",
     "rest_framework_swagger",
+    # django-allauth
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.kakao",
 ]
 
 REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": (  # 선택 사항 : API들에 대한 접근 권한 설정 가능 (원하는 API에 권한 or 커스터마이징)
+        "rest_framework.permissions.IsAuthenticated",
+    ),
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
-    ]
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+    ],
 }
+
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -131,3 +148,20 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # username 필드 사용 X
+ACCOUNT_USERNAME_REQUIRED = False  # username 필드 사용 X
+ACCOUNT_EMAIL_REQUIRED = True  # email 필드 사용 O
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+
+# JWT Settings
+REST_USE_JWT = True
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": True,
+}
