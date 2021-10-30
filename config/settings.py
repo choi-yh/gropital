@@ -19,6 +19,8 @@ from . import env
 BASE_DIR = env.BASE_DIR
 
 
+AUTH_USER_MODEL = "accounts.CustomUser"
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -31,8 +33,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-AUTH_USER_MODEL = "simpoon.CustomUser"
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,10 +44,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     # my apps
-    "contest",
     "simpoon",
+    "contest",
+    "accounts",
     # django-rest-framework
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist",
     "rest_framework_swagger",
     # django-allauth
     "allauth",
@@ -106,7 +108,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = env.DATABASES
-
+STATE = env.STATE
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
