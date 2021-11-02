@@ -44,20 +44,25 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     # my apps
+    "accounts",
     "simpoon",
     "contest",
-    "accounts",
     # django-rest-framework
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
     "rest_framework_swagger",
+    # dj-rest-auth
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
     # django-allauth
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "rest_auth.registration",
-    "allauth.socialaccount.providers.kakao",
+    "allauth.socialaccount.providers.google",
+    # "allauth.socialaccount.providers.kakao",
 ]
+
+SITE_ID = 2
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": (  # 선택 사항 : API들에 대한 접근 권한 설정 가능 (원하는 API에 권한 or 커스터마이징)
@@ -70,8 +75,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-
-SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -109,6 +112,8 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = env.DATABASES
 STATE = env.STATE
+SOCIAL_AUTH_GOOGLE_CLIENT_ID = env.SOCIAL_AUTH_GOOGLE_CLIENT_ID
+SOCIAL_AUTH_GOOGLE_SECRET = env.SOCIAL_AUTH_GOOGLE_SECRET
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
