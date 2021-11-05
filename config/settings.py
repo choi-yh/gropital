@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
-    # "allauth.socialaccount.providers.kakao",
+    "allauth.socialaccount.providers.kakao",
+    "allauth.socialaccount.providers.naver",
 ]
 
 SITE_ID = 2
@@ -110,10 +111,12 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+### env 관련
 DATABASES = env.DATABASES
 STATE = env.STATE
 SOCIAL_AUTH_GOOGLE_CLIENT_ID = env.SOCIAL_AUTH_GOOGLE_CLIENT_ID
 SOCIAL_AUTH_GOOGLE_SECRET = env.SOCIAL_AUTH_GOOGLE_SECRET
+KAKAO_REST_API_KEY = env.KAKAO_REST_API_KEY
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

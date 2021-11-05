@@ -7,23 +7,18 @@ from django.http import JsonResponse
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework import status
-from rest_framework.response import Response
 
 from dj_rest_auth.registration.views import SocialLoginView
 
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.google import views as google_view
-from allauth.socialaccount.providers.kakao import views as kakao_view
-from allauth.socialaccount.providers.naver import views as naver_view
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 
-from .models import CustomUser
+from ..models import CustomUser
 
 
 BASE_URL = "http://localhost:8000/"
 GOOGLE_CALLBACK_URI = BASE_URL + "accounts/google/callback/"
-KAKAO_CALLBACK_URI = BASE_URL + "accounts/kakao/callback/"
-NAVER_CALLBACK_URI = BASE_URL + "accounts/naver/callback/"
 
 state = getattr(settings, "STATE")
 
@@ -34,7 +29,7 @@ def google_login(request):
     구글 로그인 실행
     """
     scope = "https://www.googleapis.com/auth/userinfo.email"
-    client_id = getattr(settings, "SOCIAL_AUTH_GOOGLE_CLIENT_ID")
+    client_id = getattr(settings, "KAKAO_REST_API_KEY")
     return redirect(
         f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&response_type=code&redirect_uri={GOOGLE_CALLBACK_URI}&scope={scope}"
     )
@@ -110,5 +105,5 @@ def google_callback(request):
 
 class GoogleLogin(SocialLoginView):
     adapter_class = google_view.GoogleOAuth2Adapter
-    callback_url = GOOGLE_CALLBACK_URI
     client_class = OAuth2Client
+    callback_url = GOOGLE_CALLBACK_URI
