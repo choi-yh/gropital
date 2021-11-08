@@ -24,6 +24,10 @@ state = getattr(settings, "STATE")
 
 
 def kakao_login(request):
+    """
+    카카오 로그인을 통해 인가 코드 받기
+    이후 코드는 redirect_uri로 전달됨
+    """
     rest_api_key = getattr(settings, "KAKAO_REST_API_KEY")
     return redirect(
         f"https://kauth.kakao.com/oauth/authorize?client_id={rest_api_key}&redirect_uri={KAKAO_CALLBACK_URI}&response_type=code"
@@ -32,7 +36,7 @@ def kakao_login(request):
 
 def kakao_callback(request):
     rest_api_key = getattr(settings, "KAKAO_REST_API_KEY")
-    code = request.GET.get("code")
+    code = request.GET.get("code") # 토큰 받기 요청에 필요한 인가 코드
 
     # Access Token Request
     token_request = requests.post(
@@ -47,14 +51,13 @@ def kakao_callback(request):
     # Email Request
     profile_request = requests.get(
         "https://kapi.kakao.com/v2/user/me",
-        headers={f"Authorization: Bearer {access_token}"}
+        headers={"Authorization": f"Bearer {access_token}"}
     )
     profile_json = profile_request.json()
     error = profile_json.get("error")
     if error:
         raise JSONDecodeError(error)
     kakao_account = profile_json.get("kakao_account")
-    print(kakao_account)
     email = kakao_account.get("email")
 
     # Signup or Signin Request
