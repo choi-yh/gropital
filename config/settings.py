@@ -63,6 +63,11 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.naver",
 ]
 
+REST_AUTH_SERIALIZERS = {
+    "USER_DETAILS_SERIALIZER": "accounts.serializers.UserSerializer",
+}
+
+
 SITE_ID = 2
 
 REST_FRAMEWORK = {
@@ -111,7 +116,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-### env 관련
+# env 관련
 DATABASES = env.DATABASES
 STATE = env.STATE
 GOOGLE_CLIENT_ID = env.GOOGLE_CLIENT_ID
